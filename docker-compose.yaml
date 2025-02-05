@@ -1,0 +1,25 @@
+--- 
+services:
+  dungeon-master: 
+    build: .
+    container_name: DungeonMaster
+  lurkerllama: 
+    image: pupcakes/lurkerllama:latest
+    container_name: LurkerLlama
+    volumes:
+      - ./data/archives:/data/archives
+    environment:
+      - OPENAI_API_KEY=
+      - DISCORD_API_TOKEN=
+      - DISCORD_CLIENT_ID=
+      - DISCORD_GUILD_ID=
+      - QDRANT_KEY=
+      - QDRANT_URL=http://qdrant:6333
+      - AKASH_CHAT_API_KEY=
+      - AKASH_CHAT_API_ENDPOINT=https://chatapi.akash.network/api/v1
+      - AKASH_CHAT_API_MODEL=Meta-Llama-3-1-8B-Instruct-FP8
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    volumes:
+      - ./data/storage:/qdrant/storage
